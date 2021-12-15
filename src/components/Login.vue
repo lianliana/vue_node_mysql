@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {get,post} from '../network/request.js'
+import {post} from '../network/request.js'
 export default {
   data(){
     return {
@@ -46,7 +46,6 @@ export default {
     GoLogin(){
       this.$refs.LoginFormRef.validate(async valid=>{
         const result = await post('http://127.0.0.1:8888/api/private/v1/login',this.LoginForm)
-        console.log(result);
         if(result.meta.status!== 200) this.$message.error('登录失败');
         else {
           this.$message.success('登录成功');
