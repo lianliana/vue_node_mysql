@@ -6,7 +6,8 @@ import {
   Main, Row, Col, Menu, Submenu, MenuItem,
   MenuItemGroup, Breadcrumb, BreadcrumbItem,
   Card, Table, TableColumn, Switch,
-  Tooltip, Pagination, Dialog,MessageBox
+  Tooltip, Pagination, Dialog,MessageBox,
+  Tag,Tree
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
@@ -34,6 +35,8 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
 
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)

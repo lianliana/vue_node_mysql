@@ -65,6 +65,7 @@
                 type="warning"
                 icon="el-icon-share"
                 size="mini"
+                @click="setRoleClick(slotProps.row)"
               ></el-button>
             </el-tooltip>
             <el-button
@@ -93,11 +94,28 @@
       :editDialogVisible.sync="editDialogVisible"
       :editDialogForm="editDialogForm"
     />
+    <el-dialog
+      title="提示"
+      :visible.sync="setRoleDialogVisible"
+      width="30%"
+    >
+      <div>
+        <p>当前用户:{{this.setRoleFrom.username}}</p>
+        <p>当前角色:{{this.setRoleFrom.role_name}}</p>
+        
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setRoleDialogVisible = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { get, put,deletefn } from "../../network/request";
+import { get, put, deletefn } from "../../network/request";
 import AddDialog from "../Users/addDialog";
 import EditDialog from "../Users/editDialog.vue";
 export default {
@@ -119,6 +137,11 @@ export default {
       dialogVisible: false,
       editDialogVisible: false,
       editDialogForm: {},
+      setRoleDialogVisible:false,
+      setRoleFrom:{
+        username:null,
+        role_name:null
+      }
     };
   },
   created() {
@@ -137,12 +160,12 @@ export default {
       }
     },
     handleSizeChange(newSize) {
-      this.UserListForm.pagesize = newSize
-      this.getUserList()
+      this.UserListForm.pagesize = newSize;
+      this.getUserList();
     },
     handleCurrentChange(newPage) {
-      this.UserListForm.pagenum = newPage
-      this.getUserList()
+      this.UserListForm.pagenum = newPage;
+      this.getUserList();
     },
     //用户状态改变函数
     async userStateChange(data) {
@@ -167,6 +190,7 @@ export default {
       this.editDialogVisible = true;
       this.editDialogForm = data.data;
     },
+    //删除用户操作消息
     DeleteUsersClick(id) {
       this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -178,13 +202,12 @@ export default {
             type: "success",
             message: "删除成功!",
           });
-          const data = await deletefn('users/'+ id )
-          if(data.meta.status!==200){
-            return this.$message.error('删除用户失败！')
-          }
-          else{
-            this.$message.success('删除用户成功！')
-            this.getUserList()
+          const data = await deletefn("users/" + id);
+          if (data.meta.status !== 200) {
+            return this.$message.error("删除用户失败！");
+          } else {
+            this.$message.success("删除用户成功！");
+            this.getUserList();
           }
         })
         .catch(() => {
@@ -193,6 +216,12 @@ export default {
             message: "已取消删除",
           });
         });
+    },
+    setRoleClick(role) {
+      this.setRoleDialogVisible=true
+      console.log(role);
+      this.setRoleFrom.username=role.username
+      this.setRoleFrom.role_name=role.role_name
     },
   },
 };
