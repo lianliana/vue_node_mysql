@@ -11,7 +11,6 @@
       <el-aside width="200px">
         <MyAside :menusList="menusList"> </MyAside>
       </el-aside>
-
       <el-main>
         <router-view/>
       </el-main>
