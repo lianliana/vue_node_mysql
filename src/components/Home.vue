@@ -3,7 +3,7 @@
     <el-header>
       <div>
         <img class="SZTU_img" src="../assets/SZTU_w.png" alt="" />
-        <span>深技大后台管理系统</span>
+        <span>深技大角色权限管理系统</span>
       </div>
       <el-button type="info" round @click="quitClick">退出</el-button>
     </el-header>
@@ -44,7 +44,9 @@ export default {
        const data =await get('menus')
        if(data.meta.status!=200) return this.$message.errror(data.meta.msg)
        this.menusList=data.data
-        // console.log(this.menusList);
+        console.log(this.menusList);
+       this.menusList.splice(2,3)
+         console.log(this.menusList);
     }
   },
 };
