@@ -7,7 +7,8 @@ import {
   MenuItemGroup, Breadcrumb, BreadcrumbItem,
   Card, Table, TableColumn, Switch,
   Tooltip, Pagination, Dialog,MessageBox,
-  Tag,Tree
+  Tag,Tree,Dropdown,DropdownMenu,
+  DropdownItem
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
@@ -37,7 +38,9 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
-
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$message = Message

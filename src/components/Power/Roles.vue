@@ -250,8 +250,9 @@ export default {
         rids:rids
       })
       if (data.meta.status !== 200) {
-        return this.$message.error("更新权限数据失败");
+        return this.$message.error("更新角色权限失败");
       }
+      this.$message.success("分配角色权限成功");
       this.RightDialogVisible = false
       this.getRolesList()
     }

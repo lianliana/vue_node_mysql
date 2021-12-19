@@ -94,19 +94,31 @@
       :editDialogVisible.sync="editDialogVisible"
       :editDialogForm="editDialogForm"
     />
-    <el-dialog
-      title="提示"
-      :visible.sync="setRoleDialogVisible"
-      width="30%"
-    >
+    <el-dialog title="提示" :visible.sync="setRoleDialogVisible" width="30%">
       <div>
-        <p>当前用户:{{this.setRoleFrom.username}}</p>
-        <p>当前角色:{{this.setRoleFrom.role_name}}</p>
-        
+        <p>当前用户:{{ this.setRoleFrom.username }}</p>
+        <p>当前角色:{{ this.setRoleFrom.role_name }}</p>
+        <p>
+          分配角色
+          <el-dropdown size="small" @command="handleCommand" trigger="click">
+            <span class="el-dropdown-link">
+              {{ currentSelectrole.roleName
+              }}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item
+                v-for="item in roleList"
+                :key="item.id"
+                :command="item"
+                >{{ item.roleName }}</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </el-dropdown>
+        </p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setRoleDialogVisible = false"
+        <el-button type="primary" @click="setRoleDialogDone"
           >确 定</el-button
         >
       </span>
@@ -137,11 +149,17 @@ export default {
       dialogVisible: false,
       editDialogVisible: false,
       editDialogForm: {},
-      setRoleDialogVisible:false,
-      setRoleFrom:{
-        username:null,
-        role_name:null
-      }
+      setRoleDialogVisible: false,
+      setRoleFrom: {
+        username: null,
+        role_name: null,
+      },
+      roleList: [],
+      currentSelectrole: {
+        rid: null,
+        roleName: "请选择",
+        id: null,
+      },
     };
   },
   created() {
@@ -217,12 +235,36 @@ export default {
           });
         });
     },
-    setRoleClick(role) {
-      this.setRoleDialogVisible=true
-      console.log(role);
-      this.setRoleFrom.username=role.username
-      this.setRoleFrom.role_name=role.role_name
+    //点击分配权限按钮
+    async setRoleClick(role) {
+      this.setRoleDialogVisible = true;
+      this.setRoleFrom.username = role.username;
+      this.setRoleFrom.role_name = role.role_name;
+      this.currentSelectrole.id = role.id;
+      const data = await get("roles");
+      console.log(data.data);
+      this.roleList = data.data;
     },
+    //选择角色后储存数据
+    handleCommand(command) {
+      this.currentSelectrole.roleName = command.roleName;
+      this.currentSelectrole.rid = command.id;
+      
+      
+    },
+    //点击确认后分配新的权限
+    async setRoleDialogDone(){
+      const data = await put(`users/${this.currentSelectrole.id}/role`, {
+        id: this.currentSelectrole.id,
+        rid: this.currentSelectrole.rid,
+      });
+      if (data.meta.status !== 200) {
+        return this.$message.error("分配用户权限失败");
+      }
+      this.$message.success("分配用户权限成功");
+      this.getUserList()
+      this.setRoleDialogVisible = false;
+    }
   },
 };
 </script>
