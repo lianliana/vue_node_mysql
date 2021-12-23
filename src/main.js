@@ -7,8 +7,9 @@ import {
   MenuItemGroup, Breadcrumb, BreadcrumbItem,
   Card, Table, TableColumn, Switch,
   Tooltip, Pagination, Dialog,MessageBox,
-  Tag,Tree
+  Tag,Tree,Cascader,Alert,Tabs,TabPane
 } from 'element-ui';
+import ZkTable from 'vue-table-with-tree-grid'
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
 import '../src/assets/css/global.css'
@@ -37,7 +38,11 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
-
+Vue.use(ZkTable)
+Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$message = Message
