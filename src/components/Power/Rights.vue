@@ -33,7 +33,6 @@ export default {
   methods: {
     async getRightsList() {
       const res = await get("rights/list");
-
       if (res.meta.status != 200) {
         return this.message.error("获取列表失败");
       }

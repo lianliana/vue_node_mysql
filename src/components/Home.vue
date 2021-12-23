@@ -43,9 +43,6 @@ export default {
        const data =await get('menus')
        if(data.meta.status!=200) return this.$message.errror(data.meta.msg)
        this.menusList=data.data
-        console.log(this.menusList);
-       this.menusList.splice(2,3)
-         console.log(this.menusList);
     }
   },
 };

@@ -7,9 +7,14 @@ import {
   MenuItemGroup, Breadcrumb, BreadcrumbItem,
   Card, Table, TableColumn, Switch,
   Tooltip, Pagination, Dialog,MessageBox,
+<<<<<<< HEAD
   Tag,Tree,Dropdown,DropdownMenu,
   DropdownItem
+=======
+  Tag,Tree,Cascader,Alert,Tabs,TabPane
+>>>>>>> goods_cart
 } from 'element-ui';
+import ZkTable from 'vue-table-with-tree-grid'
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
 import '../src/assets/css/global.css'
@@ -38,9 +43,17 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
+<<<<<<< HEAD
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+=======
+Vue.use(ZkTable)
+Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
+>>>>>>> goods_cart
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$message = Message
